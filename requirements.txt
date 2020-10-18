@@ -4,3 +4,5 @@ statsmodels
 sklearn
 scipy
 jupyter
+matplotlib
+pylab
