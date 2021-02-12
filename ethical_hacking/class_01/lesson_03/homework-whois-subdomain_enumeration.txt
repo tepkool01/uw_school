@@ -1,0 +1,120 @@
+SUBDOMAINS
+Subdomain	IP address	OS	Server	Technology	Web Platform	Page Title
+webservices.uw.edu	13.225.31.127		AmazonS3			UW Service Registry
+brite.uw.edu	23.236.62.147		Pepyaka 1.19.0			BRiTE Center - University of Washington
+m.uw.edu	34.82.105.123					Mobile UW: Home
+mobile.uw.edu	34.82.105.123					Mobile UW: Home
+my.uw.edu	34.82.105.123			JSP		UW NetID sign-in
+canvas.uw.edu	34.198.66.249		Apache			
+privacy.uw.edu	34.223.205.92		Apache 2.4.29	PHP	WordPress 5.5.3	UW Privacy Office
+sites.uw.edu	35.172.73.102		openresty	PHP	WordPress 3.6	University of Washington
+autodiscover.uw.edu	40.101.18.24					UW NetID sign-in
+com.uw.edu	45.79.65.146		Apache 2.4.38	PHP	WordPress 1.6.9	Department of Communication - University of Washington
+cms.uw.edu	52.38.204.127					
+sip.uw.edu	52.112.196.46		RTC 7.0			
+api.uw.edu	54.226.156.114		awselb 2.0			
+environment.uw.edu	69.91.245.18	Linux	Apache 2.2.34	PHP 7.2.4	WordPress 5.6.1	College of the Environment | University of Washington
+food.uw.edu	69.91.245.18	Linux	Apache 2.2.34	PHP 7.2.4	WordPress 5.6.1	UW Farm | University of Washington Botanic Gardens
+localhost.uw.edu	127.0.0.1					
+vip.uw.edu	128.95.19.112		Apache	PHP 7.4.15	Drupal 7.70	UW VIP
+me.uw.edu	128.95.19.112		Apache	PHP 7.4.15	Drupal 8	UW Mechanical Engineering Homepage | Mechanical Engineering
+data.uw.edu	128.95.155.137	Linux	Apache 2.2.34	Ruby on Rails		Data Science at the University of Washington
+finance.uw.edu	128.95.155.185	Linux	Apache 2.2.32	PHP 5.6.30	Drupal 7	Welcome to UW Finance | UW Finance
+www.uw.edu	128.95.155.197	Linux	Apache 2.2.24	PHP 7.2.23 mod_pubcookie/3.3.4a mod_uwa/3.2.1	WordPress 4.9.15	UW Homepage
+uw.edu	128.95.155.198	Linux	Apache 2.2.24	PHP 7.2.23 mod_pubcookie/3.3.4a mod_uwa/3.2.1	WordPress 4.9.15	UW Homepage
+police.uw.edu	128.95.155.199					
+print.uw.edu	128.95.198.22	Windows	Microsoft-IIS 8.5	ASP.NET		UW Print Center by DawgPrints
+global.uw.edu	128.208.0.105	Linux	Apache 2.2.32	PHP 7.1.1 mod_pubcookie/3.3.4a mod_uwa/3.2.1		403 Forbidden
+seed.uw.edu	128.208.3.120		Apache 2.4.6	PHP 7.3.24	WordPress 5.6.1	SEED – Solutions for the Environment, Economy, and Democracy
+veteran.uw.edu	128.208.60.35	Linux	Apache 2.2.34			403 Forbidden
+iso.uw.edu	128.208.60.163	Linux	Apache 2.2.34	PHP 7.3.22	WordPress 5.6	Academic HR - Academic Personnel
+ap.uw.edu	128.208.60.163	Linux	Apache 2.2.34	PHP 7.3.22	WordPress 5.6	OAP Home - Academic Personnel
+facilities.uw.edu	128.208.60.226		Apache	PHP 7.4.10	Drupal 7	UW Facilities Home | UW Facilities
+medex.uw.edu	128.208.123.181		Apache 2.4.37	PHP 7.2.11	WordPress 5.3.2	MEDEX Northwest
+radius.uw.edu	128.208.178.147					
+vpn.uw.edu	128.208.179.229		BigIP			
+be.uw.edu	128.208.201.13		Apache 2.4.6	PHP 7.4.12	WordPress 3.6	CBE HOME -
+online.uw.edu	138.91.175.76					
+maps.uw.edu	140.142.5.168	Windows	Microsoft-IIS 10.0	ASP.NET		MAPS - Mapping Assets, Properties, and Spaces
+owa.uw.edu	140.142.11.74	Windows	Microsoft-IIS 10.0	ASP.NET 4.0.30319		Outlook
+mxe21.s.uw.edu	140.142.32.134					
+mxe22.s.uw.edu	140.142.32.135					
+mxe32.s.uw.edu	140.142.32.137					
+mxe23.s.uw.edu	140.142.32.165					
+mxe28.s.uw.edu	140.142.32.172					
+mxe31.s.uw.edu	140.142.32.173					
+ssc.uw.edu	140.142.214.168	Linux	Apache 2.2.34			403 Forbidden
+msg.uw.edu	140.142.233.133					
+smtp.uw.edu	140.142.234.163					
+events.uw.edu	143.204.226.80	Windows	Microsoft-IIS	ASP.NET		EventRsvp
+mxe29.s.uw.edu	173.250.227.18					
+mxe30.s.uw.edu	173.250.227.19					
+mxe24.s.uw.edu	173.250.227.24					
+mxe25.s.uw.edu	173.250.227.25					
+mxe26.s.uw.edu	173.250.227.26					
+mxe27.s.uw.edu	173.250.227.30					
+holly.s.uw.edu	173.250.227.69					
+alert.uw.edu	192.0.78.216		nginx	PHP	WordPress	UW Alert Blog
+
+========================
+
+WHOIS LOOKUP
+This Registry database contains ONLY .EDU domains.
+The data in the EDUCAUSE Whois database is provided
+by EDUCAUSE for information purposes in order to
+assist in the process of obtaining information about
+or related to .edu domain registration records.
+
+The EDUCAUSE Whois database is authoritative for the
+.EDU domain.
+
+A Web interface for the .EDU EDUCAUSE Whois Server is
+available at: http://whois.educause.edu
+
+By submitting a Whois query, you agree that this information
+will not be used to allow, enable, or otherwise support
+the transmission of unsolicited commercial advertising or
+solicitations via e-mail.  The use of electronic processes to
+harvest information from this server is generally prohibited
+except as reasonably necessary to register or modify .edu
+domain names.
+
+-------------------------------------------------------------
+
+Domain Name: UW.EDU
+
+Registrant:
+        University of Washington
+        4545 15th Ave NE
+        Suite 400
+        Seattle, WA 98105-4527
+        US
+
+Administrative Contact:
+        Domain Admin
+        University of Washington
+        4545 15th Avenue NE
+        Box 354840 UW-IT NOC
+        Seattle, WA 98105-4527
+        US
+        +1.2062216000
+        
+
+Technical Contact:
+         
+        University of Washington
+        4545 15th Avenue NE
+        Box 354840 UW-IT NOC
+        Seattle, WA 98105-4527
+        US
+        +1.2062216000
+        
+
+Name Servers:
+        HOLLY.S.UW.EDU
+        HANNA.CAC.WASHINGTON.EDU
+        MARGE.CAC.WASHINGTON.EDU
+
+Domain record activated:    05-Mar-1999
+Domain record last updated: 26-Dec-2020
+Domain expires:             31-Jul-2021
