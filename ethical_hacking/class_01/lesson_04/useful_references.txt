@@ -1,0 +1,2 @@
+https://nmap.org/book/man.html
+http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines#Nmap_.28Windows.2FLinux.29
