@@ -1,0 +1,5 @@
+[after initializing the database and starting postgres]
+msfconsole
+db_import output.xml
+search type:exploit
+exploit/aix/local/ibstat_path  2013-09-24       excellent  Yes    ibstat $PATH Privilege Escalation

@@ -1,0 +1,2 @@
+It seems that netcat attempts to fully complete the handshake (SYN, SYN-ACK, ACK) whereas a SYN scan in nmap would not wait for the server to send back the acknowledgement.
+A syn scan would show up in fewer logs because instead of 3 TCP transmissions, there is only 1 (or 2). I wonder if that is actually 2, because if the server received the SYN, they would try to send the SYN-ACK, but our scan would never respond with the ACK.
