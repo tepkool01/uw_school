@@ -1,0 +1,32 @@
+Lesson Resources
+OWASP Top 10 Vulnerabilities (Links to an external site.)
+OWASP ZAP (Links to an external site.)
+SQL Injection (SQLi)
+
+SQL basics: http://www.w3schools.com/sql/
+SQL injection - Examples, some useful tips too: http://www.securiteam.com/securityreviews/5DP0N1P76E.html
+SQL injection - Some more background info: http://www.w3schools.com/sql/sql_injection.asp
+SQL injection - Some more background info: https://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OTG-INPVAL-005%29
+Cross-Site Scripting (XSS)
+
+JavaScript Basics - http://www.w3schools.com/js/
+JavaScript Basics - https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/JavaScript_basics
+XSS - Tips - https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+XSS Basics - https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
+XSS Basics (recommended) - https://www.google.com/about/appsecurity/learning/xss/
+Just FYI Info
+
+https://code.google.com/archive/p/mustache-security/ (Links to an external site.)
+http://blog.portswigger.net/2016/01/xss-without-html-client-side-template.html (Links to an external site.)
+
+Reading Materials:
+SQL basics: http://www.w3schools.com/sql/ (Links to an external site.)
+SQL injection - Examples, some useful tips too: http://www.securiteam.com/securityreviews/5DP0N1P76E.html (Links to an external site.)
+SQL injection - Some more background info: http://www.w3schools.com/sql/sql_injection.asp (Links to an external site.)
+SQL injection - Some more background info: https://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OTG-INPVAL-005%29
+
+Reference Materials:
+JavaScript Basics - http://www.w3schools.com/js/ (Links to an external site.) JavaScript Basics - https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/JavaScript_basics (Links to an external site.)
+XSS - Tips - https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet (Links to an external site.)
+XSS Basics - https://owasp.org/www-community/attacks/xss/ (Links to an external site.)
+XSS Basics (recommended) - https://www.google.com/about/appsecurity/learning/xss/

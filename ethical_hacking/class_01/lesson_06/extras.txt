@@ -1,0 +1,13 @@
+A good overview of ARP
+https://technet.microsoft.com/en-us/library/cc758357%28v=ws.10%29.aspx (Links to an external site.)
+
+DNS Spoofing Tutorial (Parts 1, 3, and 4 also good reads) 
+
+http://techgenix.com/Understanding-Man-in-the-Middle-Attacks-ARP-Part2/ (Links to an external site.) 
+
+Article about some Denial of Service tools used by the Anonymous group
+http://arstechnica.com/business/2012/02/high-orbits-and-slowlorises-understanding-the-anonymous-attack-tools/ (Links to an external site.)
+
+[keep in mind there are many network visualization tools out there, this is just one]
+Inav (Interactive Network Active-traffic Visualization) is a tool that shows traffic in real time on a Java-based client. It is composed of a server that gathers traffic in real time, and a client that renders the information on a map.
+https://www.aldeid.com/wiki/Inav

@@ -1,0 +1,2 @@
+Read Bird, et al, Natural Language Processing with Python - Analyzing Text with the Natural Language Toolkit- (Links to an external site.) Chapter 4, 5 and 6.
+https://www.nltk.org/book/

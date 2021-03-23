@@ -1,0 +1,17 @@
+For each of the 3 categories of attacks discussed in this module (man-in-the-middle, denial of service, spoofing), answer the following questions:
+
+
+- What types of situations lend themselves to using this particular attack?
+MITM: If you want to intercept communication before the device connects to the router/endpoint, you'd position yourself between the router and the victim's computer. This would be valuable for eavesdropping traffic, routing traffic differently, capturing responses, modifying traffic, etc.
+DOS: If you wanted to take down a service, make it unavailable to legitament users, or cause a company to incur substantial costs (due to scaling/bandwidth costs/missed sales), you could DOS it. 
+SPOOFING: If you wanted to have a white-listed IP or Mac address (on a router). Could also hide your identity. 
+
+- What kind of position on the network do you need in order to execute the attack?
+MITM: You'd have to be positioned between the router/AP and the victim. 
+DOS: You can be an external actor (not in the network) or in the network. This attack is about overloading the target, but gains notoriety from external bots attacking public systems.
+SPOOFING: Similar to DOS, spoofing can be done anywhere. 
+
+- As an attacker, what could you gain by using this type of attack?
+MITM: Could see where victims go on the web, what services they use, login information, etc.
+DOS: Could disrupt business operations of ecommerce sites, could prevent normal operation of devices/systems and potentially crash them. 
+SPOOFING: Could protect your identity, cause unusual circumstances in systems to exploit duplicate addresses/mac addresses, bypass system restrictions from blocking you. 

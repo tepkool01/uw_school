@@ -1,0 +1,4 @@
+Chapter 9: Recommendation Systems (Links to an external site.).
+Optional: Read Leskovec, et al, Mining of Massive Data Sets (Links to an external site.),
+http://www.mmds.org/
+http://infolab.stanford.edu/~ullman/mmds/ch9.pdf
