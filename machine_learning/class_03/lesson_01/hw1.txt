@@ -1,0 +1,34 @@
+Name: Michael Young (myoung10)
+Display Name on Kaggle: Buenos Aires
+
+x = -0.10       # our input variable
+y = -0.10       # our output variable
+w =  1.00       # the actual parameter
+w_hat = 1.10    # our current estimate of the parameter
+learning rate = 0.1
+
+===
+a) If our prediction is y_hat = w_hat * x [i.e. we're using a linear activation function], what is the value of the mean squared error loss function for this example?
+
+loss = (w * x - w_hat * x)^2 = (1 * -0.1 - 1.10 * -0.1)^2 = (-0.1 - -0.11)^2 = 0.0001
+
+===
+b) What is the gradient of the mean squared error loss with respect to the weight estimate w_hat?
+
+y = w * x = 1.00 * -0.10 = -0.10
+y_hat = w_hat * x = 1.10 * -0.10 = -0.11
+
+gradient(loss, w_hat) = 2 * (y_hat - y) * 1 * x = 2 * (-0.11 - -0.10) * 1 * -0.10 = 0.002
+
+===
+c) What is the updated estimate of w_hat?  We are using gradient descent, so new_weight = old_weight - learning_rate * gradient.
+learning_rate = 0.1
+
+w_hat = w_hat - learning_rate * gradient(loss, w_hat) = 1.10 - (0.1 * 0.002) = 1.0998
+
+===
+d) What is the value of the mean squared error loss function for this example, after updating the weight? Has "learning" reduced the loss function?
+
+loss = (w * x - w_hat * x)^2 = (1 * -0.1 - 1.0998 * -0.1)^2 = (-0.1 - -0.10998)^2 = 0.0000996004
+
+since 0.0000996004 < 0.0001, we've reduced our loss, and have 'learned'.

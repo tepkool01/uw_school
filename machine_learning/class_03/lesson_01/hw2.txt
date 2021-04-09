@@ -1,0 +1,43 @@
+Model 1 (5 points):
+
+Navigate to https://www.kaggle.com (Links to an external site.) and register an account with your name@uw.edu email address.  For your display name, pick the name of your favorite city [or one of these: https://en.wikipedia.org/wiki/List_of_largest_cities (Links to an external site.)].  Please include your display name when submitting your homework answer.
+
+After you have registered with Kaggle, please navigate to the following URL to accept the invitation for this Kaggle task:
+
+https://www.kaggle.com/t/5d6ba9f21ff34e17b69cb0b8b1c425cc (Links to an external site.)
+
+After you have accepted the invitation, you should create an authentication token [you only have to do this once for the class]:
+
+Click on the picture of the goose in the upper, righthand corner
+Select Account from the menu
+Click the button that says "Create New API Token": it downloads kaggle.json
+Now you should go to https://gmail.uw.eduLinks to an external site. and find your invitation to "Register for Lab - Deep Learning DSVM":
+
+Click the "Register for the lab" button in the email
+Turn your Data Science Virtual Machine (DSVM) on [by clicking the button]
+Select "Reset password" [from the "More actions menu" (3 vertical dots)] to assign the password for the username "deeplearning"
+Select "Connect via ssh" [from the "Connect menu" (connector icon)] to get the hostname and port number for your Virtual Machine (VM)
+Install the "PuTTY" secure shell (ssh) client software; e.g. choose "MSI (Windows Installer)" if you're using Windows [Ubuntu and MacOS already has an ssh command]: Download PuTTY: latest release (0.74) (greenend.org.uk) (Links to an external site.)
+Use the putty ssh client to connect to your VM [fill in the "Host Name" and "Port" values for your VM, then click the "Open" button]:
+putty.png
+
+
+
+Once you are logged into your VM [using the username "deeplearning" (without the quotes) and the password you just created], you should:
+
+Activate the py37_tensorflow environment [you will need to do this each time you login]
+conda activate py37_tensorflow
+Install the keras-tuner; install the kaggle API; and create your kaggle.json file [you will only need to do this once for this class]
+pip install keras-tuner
+pip install kaggle
+mkdir ~/.kaggle
+nano ~/.kaggle/kaggle.json
+{"username":"UserNameGoesHere","key":"KeyGoesHere"}
+# To save: Ctrl+X > "Y" > Enter
+chmod 600 ~/.kaggle/kaggle.json
+Download the data and the example script; install the keras-tuner package; run the example script; upload your predictions to kaggle; and check the public leaderboard
+kaggle competitions download ml530-2021-sp-mnist
+wget http://cross-entropy.net/ml530/mnist-search.py.txt
+python mnist-search.py.txt
+kaggle competitions submit ml530-2021-sp-mnist -f predictions.csv -m "MLP submission"
+kaggle competitions leaderboard ml530-2021-sp-mnist -s
