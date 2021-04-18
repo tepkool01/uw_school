@@ -1,0 +1,6 @@
+Name: Michael Young (myoung10)
+Kaggle Display Name: Buenos Aires
+
+How many parameters are in the first Dense() layer, which uses 784 input features to produce 512 new features to be used as input to the next layer?  Please note that this layer has both a weight matrix and a bias vector.
+
+(784 + 1) * 512 = 401,920 parameters are in the first dense layer.
