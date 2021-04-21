@@ -1,0 +1,16 @@
+Name: Michael Young (myoung10)
+Kaggle Name: Buenos Aires
+
+Question:
+Would we expect this "deep" model (a model with more than one hidden layer) to beat (be more accurate than) a multinomial logistic regression model; i.e. would it beat a model defined as ...
+from tensorflow.keras import layers, models
+model = models.Sequential()
+model.add(layers.Dense(10, activation = "softmax", input_shape = (784,)))
+Why or why not?
+
+Answer:
+In the case of the MNIST dataset, I believe softmax would beat a "deep model" with a linear activation function. Activation functions determine the output of the neural network. In the case of a linear activation function, the output could
+potentially be from -inf to +inf, and what would a result of an arbitrary value tell us about the identity of digits? Maybe a high value would indicate a coorelation, but the values are not contained so the outputs
+would be difficult (if not impossible) to interpret. The softmax function is a generalized logistic function for multiple dimensions, which suits this problem. This means that we can get an array of
+probabilities (0 to 1) of the identity of digits. I.E. 0.99 for class 4 would give us high confidence that the presented digit was a 4. This is not to say that a linear activation will never beat a softmax, but for this specific problem, it is not
+the right tool for the job.
