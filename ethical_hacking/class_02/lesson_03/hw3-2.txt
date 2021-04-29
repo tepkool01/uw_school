@@ -1,0 +1,4 @@
+Password: atR4FLnAzm46WG5yWKRYGHKB97s9MZDHCFBsRRY
+Attack URL String: http://127.0.0.1:8000/..%2Fadmin%2Fget%2Fpasswords
+Using a combination of traversal, the hints, and url encoding of a forward slash, I was able to get to the 'parent' directory (break out of the /public) I otherwise shouldn't be able to see.
+It appears that the application is not properly sanitizing the url input. There was also a listing of all available APIs, including admin APIs if you modified the hint URL.
