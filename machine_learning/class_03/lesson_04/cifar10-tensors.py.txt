@@ -1,0 +1,42 @@
+import numpy as np
+from io import TextIOWrapper
+from PIL import Image
+from zipfile import ZipFile
+
+with ZipFile("ml530-2021-sp-cifar10.zip", "r") as archive:
+    trnX = np.zeros((45000, 32, 32, 3), dtype = "float32")
+    index = 0
+    for i in range(trnX.shape[0]):
+        with archive.open("cifar10_trn/trn_" + str(i).zfill(5) + ".png") as file:
+            img = Image.open(file)
+            trnX[i] = np.asarray(img)
+        index = index + 1
+    np.save("trnX.npy", trnX)
+    trnY = np.zeros((45000,), dtype = "int32")
+    with TextIOWrapper(archive.open("cifar10_trn.csv", "r")) as file:
+        header = file.readline()
+        for i in range(trnY.shape[0]):
+            trnY[i] = int(file.readline().strip("\r\n").split(",")[1])
+    np.save("trnY.npy", trnY)
+    valX = np.zeros((5000, 32, 32, 3), dtype = "float32")
+    index = 0
+    for i in range(valX.shape[0]):
+        with archive.open("cifar10_val/val_" + str(i).zfill(5) + ".png") as file:
+            img = Image.open(file)
+            valX[i] = np.asarray(img)
+        index = index + 1
+    np.save("valX.npy", valX)
+    valY = np.zeros((5000,), dtype = "int32")
+    with TextIOWrapper(archive.open("cifar10_val.csv", "r")) as file:
+        header = file.readline()
+        for i in range(valY.shape[0]):
+            valY[i] = int(file.readline().strip("\r\n").split(",")[1])
+    np.save("valY.npy", valY)
+    tstX = np.zeros((10000, 32, 32, 3), dtype = "float32")
+    index = 0
+    for i in range(tstX.shape[0]):
+        with archive.open("cifar10_tst/tst_" + str(i).zfill(5) + ".png") as file:
+            img = Image.open(file)
+            tstX[i] = np.asarray(img)
+        index = index + 1
+    np.save("tstX.npy", tstX)
