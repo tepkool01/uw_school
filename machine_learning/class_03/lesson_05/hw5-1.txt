@@ -1,0 +1,22 @@
+Name: Michael Young (myoung10)
+Display Name: Buenos Aires
+
+Off-The-Shelf-Results:
+
+========
+a) What is the output shape of the second Conv2D() layer?
+24, 24, 32
+
+b) How many parameters are there in the second Conv2D() layer?
+4640
+
+c) Assuming your model uses single precision (32-bit floating point numbers) for parameters, what will be the size of the second Conv2D() layer in bytes?
+18,560
+
+d) When we look at the size of mnist-optimizer/variables/variables.data-00000-of-00001, we see the following file sizes for the 3 optimizers:
+sgd: 2,388,926
+rmsprop: 4,774,349
+adam: 7,159,495
+Why would the size of a model trained with optimizer="rmsprop" be about twice the size of the model trained with optimizer="sgd"?
+
+RMSprop uses a squared moving average of the gradient and SGD uses the moving average of the gradient. I imagine the numbers might be larger (occupy more bytes because more decimal places) and require more space to hold when using a function that squares the gradient.

@@ -1,0 +1,95 @@
+In section 3.1.1 (page 59) of the Deep Learning with Python textbook, the first couple of hidden layers of a model are defined as follows:
+
+from keras import models
+from keras import layers
+
+model = models.Sequential()
+model.add(layers.Dense(32, input_shape=(784,)))
+model.add(layers.Dense(32))
+Suppose we "finished" the model by adding:
+
+model.add(layers.Dense(10, activation = "softmax")
+
+
+In reviewing the documentation for the Keras Dense() layer [https://keras.io/api/layers/core_layers/dense/ (Links to an external site.)], we see 'If you don't specify anything, no activation is applied (ie. "linear" activation: a(x) = x).'
+
+Would we expect this "deep" model (a model with more than one hidden layer) to beat (be more accurate than) a multinomial logistic regression model; i.e. would it beat a model defined as follows?
+
+from tensorflow.keras import layers, models
+model = models.Sequential()
+model.add(layers.Dense(10, activation = "softmax", input_shape = (784,)))
+
+Why or why not?
+
+We do not expect the first model to beat the second model, as the activation function was not specified for the first two ("hidden") layers of the first model; so the three matrix multiplication steps can be replaced with a single matrix multiplication step as follows:
+
+from tensorflow.keras import callbacks, datasets, layers, models
+model = models.Sequential()
+model.add(layers.Dense(32, input_shape=(784,)))
+model.add(layers.Dense(32))
+model.add(layers.Dense(10, activation = "softmax"))
+
+(train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
+train_images = train_images.reshape((60000, 28 * 28))
+train_images = train_images.astype('float32') / 255
+test_images = test_images.reshape((10000, 28 * 28))
+test_images = test_images.astype('float32') / 255
+
+model.compile(optimizer = "rmsprop", loss = "sparse_categorical_crossentropy", metrics = [ "accuracy" ])
+model.fit(train_images, train_labels, validation_split = 0.1, epochs = 10, callbacks = [ callbacks.EarlyStopping(monitor = "val_accuracy", patience = 8, restore_best_weights = True) ])
+
+import numpy as np
+len(model.layers)
+# W: (784, 32) x (32, 32) x (32, 10) = (784, 10)
+weight_matrix = np.matmul(
+                    np.matmul(
+                        model.layers[0].get_weights()[0], model.layers[1].get_weights()[0]
+                    ),
+                    model.layers[2].get_weights()[0]
+                )
+# b: [ (1, 32) x (32, 32) + (1, 32) ] x (32, 10) + (1, 10) = (1, 10)
+bias_vector = np.matmul(
+                  np.matmul(
+                      np.expand_dims(model.layers[0].get_weights()[1], axis = 0),
+                      model.layers[1].get_weights()[0]
+                  ) + model.layers[1].get_weights()[1],
+                  model.layers[2].get_weights()[0]
+              ) + model.layers[2].get_weights()[1]
+
+y0 = model.predict(test_images[:1])
+x1 = np.matmul(test_images[:1], weight_matrix) + bias_vector
+y1 = np.exp(x1) / np.exp(x1).sum()
+
+Epoch 1/10
+1688/1688 [==============================] - 7s 3ms/step - loss: 0.5391 - accuracy: 0.8477 - val_loss: 0.2606 - val_accuracy: 0.9257
+Epoch 2/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.3060 - accuracy: 0.9131 - val_loss: 0.2502 - val_accuracy: 0.9297
+Epoch 3/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2984 - accuracy: 0.9169 - val_loss: 0.2506 - val_accuracy: 0.9293
+Epoch 4/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2938 - accuracy: 0.9186 - val_loss: 0.2380 - val_accuracy: 0.9357
+Epoch 5/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2895 - accuracy: 0.9210 - val_loss: 0.2478 - val_accuracy: 0.9320
+Epoch 6/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2861 - accuracy: 0.9185 - val_loss: 0.2381 - val_accuracy: 0.9338
+Epoch 7/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2837 - accuracy: 0.9230 - val_loss: 0.2424 - val_accuracy: 0.9317
+Epoch 8/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2767 - accuracy: 0.9236 - val_loss: 0.2436 - val_accuracy: 0.9308
+Epoch 9/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2755 - accuracy: 0.9225 - val_loss: 0.2416 - val_accuracy: 0.9325
+Epoch 10/10
+1688/1688 [==============================] - 5s 3ms/step - loss: 0.2742 - accuracy: 0.9238 - val_loss: 0.2359 - val_accuracy: 0.9342
+
+>>> y0
+array([[9.9123298e-08, 1.6964771e-14, 3.8839886e-07, 1.3036312e-03,
+        3.3816534e-08, 1.0637431e-05, 5.3887463e-12, 9.9828893e-01,
+        9.3085538e-07, 3.9535161e-04]], dtype=float32)
+
+>>> y1
+array([[9.9123483e-08, 1.6964818e-14, 3.8839977e-07, 1.3036330e-03,
+        3.3816743e-08, 1.0637464e-05, 5.3887355e-12, 9.9828893e-01,
+        9.3085714e-07, 3.9535237e-04]], dtype=float32)
+
+>>> np.abs(y0 - y1).max()
+1.7462298e-09

@@ -1,0 +1,78 @@
+Suppose we define a convolutional network as shown below.
+
+    # python mnist-cnn.py sgd
+    # python mnist-cnn.py rmsprop
+    # python mnist-cnn.py adam
+
+    import sys
+    from tensorflow.keras import callbacks, datasets, layers, models, optimizers
+
+    optimizer_name = sys.argv[1]
+    model_name = "mnist-" + optimizer_name
+
+    (x_train, y_train), (x_test, y_test) = datasets.mnist.load_data()
+    x_train = x_train.reshape((x_train.shape[0], x_train.shape[1], x_train.shape[2], 1)).astype("float32") / 255.0
+    x_test = x_test.reshape((x_test.shape[0], x_test.shape[1], x_test.shape[2], 1)).astype("float32") / 255.0
+
+    model = models.Sequential()
+    model.add(layers.Conv2D(filters = 16, kernel_size = (3, 3), activation = "relu", input_shape = (28,28,1)))
+    model.add(layers.Conv2D(filters = 32, kernel_size = (3, 3), activation = "relu"))
+    model.add(layers.MaxPooling2D(pool_size = (2, 2)))
+    model.add(layers.Dropout(0.25))
+    model.add(layers.Flatten())
+    model.add(layers.Dense(units = 128, activation = "relu"))
+    model.add(layers.Dropout(0.50))
+    model.add(layers.Dense(y_train.max() + 1, activation = "softmax"))
+    model.compile(loss = "sparse_categorical_crossentropy", optimizer = optimizer_name, metrics = ["accuracy"])
+
+    model.fit(x_train, y_train, batch_size = 128, epochs = 16, validation_split = 0.1, callbacks = [ callbacks.EarlyStopping(monitor = "val_accuracy", patience = 8, restore_best_weights = True) ])
+
+    model.summary()
+    model.save(model_name)
+
+    model = models.load_model(model_name)
+    model.evaluate(x_test, y_test)
+
+a) What is the output shape of the second Conv2D() layer?
+
+Recall that padding = "valid" (no padding) by default.
+
+For the first Conv2D() layer, the size of image height and width is given by:
+(image_size - filter_size + 2 * padding) / stride_size + 1 = (28 - 3 + 2 * 0) / 1 + 1 = 26
+
+So the output shape for the first Conv2D() layer is (26, 26, 16), with one channel per filter in the first Conv2D() layer.
+
+For the second Conv2D() layer, the size of image height and width is given by:
+(image_size - filter_size + 2 * padding) / stride_size + 1 = (26 - 3 + 2 * 0) / 1 + 1 = 24
+
+So the output shape for the second Conv2D() layer is (24, 24, 32), with one channel per filter in the second Conv2D() layer.
+
+b) How many parameters are there in the second Conv2D() layer?
+
+The number of parameters for the second Conv2D() layer is:
+filters * (filter_height * filter_width * input_channels + 1) = 32 * (3 * 3 * 16 + 1) = 4,640.
+
+c) Assuming your model uses single precision (32-bit floating point numbers) for parameters, what will be the size of the second Conv2D() layer in bytes?
+
+4,640 * 4 = 18,560
+
+d) When we look at the size of mnist-optimizer/variables/variables.data-00000-of-00001, we see the following file sizes for the 3 optimizers:
+
+sgd: 2,388,926
+rmsprop: 4,774,349
+adam: 7,159,495
+
+Why would the size of a model trained with optimizer="rmsprop" be about twice the size of the model trained with optimizer="sgd"?
+
+Hint: Check the RMSprop slide from the first night.
+
+The rmsprop optimizer is maintaining a moving average of the squared gradient for each weight.  By default, the state of the optimizer is saved when model.save("directory_name") is called (i.e. include_optimizer = True), in case we would like to resume training later.
+
+Bonus: The adam optimizer is also maintaining a moving average of the gradient for each weight, for momentum.  The first moment is the moving average of the gradient, while the second moment is the moving average of the squared gradient; hence the name, adaptive moments (adam).
+
+Overall, there are 596,042 parameters in this model; so the raw model size is 596,042 * 4 = 2,384,168 bytes.  This is doubled for rmsprop (4,768,336 bytes) and tripled for adam (7,152,504 bytes).
+
+Try:
+strings mnist-sgd/variables/variables.data-00000-of-00001 | grep optimizer/
+strings mnist-rmsprop/variables/variables.data-00000-of-00001 | grep optimizer/
+strings mnist-adam/variables/variables.data-00000-of-00001 | grep optimizer/

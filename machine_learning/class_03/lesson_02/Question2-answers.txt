@@ -1,0 +1,26 @@
+A dense layer consists of a weight matrix, W, and a bias vector, b.  The number of rows in W is determined by the number of input features from the previous layer, while the number of columns in W and the length of b are determined by the number of units (neurons) in the dense layer.  To produce output for a dense layer: the input is multiplied by the weight matrix; the bias vector is added to each row of the result; then an activation function is applied to the result.
+
+On page 28 of Deep Learning with Python, a network to predict class labels for handwritten digits was defined as follows:
+
+from keras import models
+from keras import layers
+network = models.Sequential()
+network.add(layers.Dense(512, activation='relu', input_shape=(28 * 28,)))
+network.add(layers.Dense(10, activation='softmax'))
+
+This Multi-Layer Perceptron (MLP) model consists of two layers: a single hidden layer followed by the output layer.
+
+The output layer uses the 512 features from the previous layer as input to predict probabilities for the 10 different classes; so the second Dense layer has (512 + 1) * 10 = 5130 parameters.
+
+How many parameters are in the first Dense() layer, which uses 784 input features to produce 512 new features to be used as input to the next layer?  Please note that this layer has both a weight matrix and a bias vector.
+
+To check your answer, consider changing "keras" to "tensorflow.keras" in the above code example, then use network.summary() to print the parameter counts for the model.
+
+from tensorflow.keras import models
+from tensorflow.keras import layers
+network = models.Sequential()
+network.add(layers.Dense(512, activation='relu', input_shape=(28 * 28,)))
+network.add(layers.Dense(10, activation='softmax'))
+network.summary()
+
+There are 512 neurons in the first Dense() layer, and each one of those neurons has weights for 784 input pixels and a bias; so there are (784 + 1) * 512 = 401,920 parameters in the first Dense() layer.

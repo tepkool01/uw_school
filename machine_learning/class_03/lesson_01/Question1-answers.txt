@@ -1,0 +1,46 @@
+Suppose we have scaled the inputs for our one parameter linear regression problem and ...
+x = -0.10    # our input variable
+y = -0.10    # our output variable
+w =  1.00    # the actual parameter
+w_hat = 1.10    # our current estimate of the parameter
+learning rate = 0.1
+
+
+a) If y_hat = w_hat * x, what is the value of the mean squared error loss function for this example?
+
+y_hat = x * w_hat
+      = (-0.10) * 1.10
+      = -0.11
+loss = (y - y_hat)**2
+     = ((-0.10) - (-0.11))**2
+     = (0.01)**2
+     = 0.0001
+
+
+b) What is the gradient of the mean squared error loss with respect to the weight estimate w_hat?
+
+Don't forget to use the chain rule:
+gradient = (partial derivative of loss with respect to activation)
+         * (partial derivative of activation with respect to product)
+         * (partial derivative of product with respect to weight)
+
+gradient(loss, w_hat) = 2 * (y_hat - y) * 1 * x
+                      = 2 * ((-0.11) - (-0.10)) * 1 * (-0.10)
+                      = 2 * (-0.01) * 1 * (-0.10)
+                      = 0.002
+
+
+c) What is the updated estimate of w_hat? Don't forget that we are using gradient descent; i.e. new_weight = old_weight - learning_rate * gradient.
+
+w_hat = w_hat - learning_rate * gradient(loss, w_hat)
+      = 1.10 - 0.10 * 0.002
+      = 1.10 - 0.0002
+      = 1.0998
+
+
+d) What is the value of the mean squared error loss function for this example, after updating the weight? Has "learning" reduced the loss function?
+
+y_hat = x * w_hat = (-0.10) * 1.0998 = -0.109980
+loss = (y - y_hat)**2 = ((-0.10) - (-0.109980))**2 = (0.00998)**2 = 0.0000996004
+
+Yes; 0.0000996004 is less than 0.0001
