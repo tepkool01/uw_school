@@ -1,9 +1,6 @@
 Name: Michael Young (myoung10)
 Display Name: Buenos Aires
 
-Off-The-Shelf-Results:
-
-========
 a) What is the output shape of the second Conv2D() layer?
 24, 24, 32
 
