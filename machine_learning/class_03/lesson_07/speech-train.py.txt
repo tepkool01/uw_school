@@ -1,0 +1,52 @@
+import math
+import numpy as np
+import tensorflow
+from tensorflow.keras import callbacks, experimental, layers, models, optimizers
+from transformer import TransformerBlock
+
+trnX = np.load("trnX.npy")
+trnY = np.load("trnY.npy")
+valX = np.load("valX.npy")
+valY = np.load("valY.npy")
+tstX = np.load("tstX.npy")
+
+trnP = np.tile(np.arange(trnX.shape[1]), (trnX.shape[0], 1))
+valP = np.tile(np.arange(valX.shape[1]), (valX.shape[0], 1))
+tstP = np.tile(np.arange(tstX.shape[1]), (tstX.shape[0], 1))
+
+mu = trnX.mean()
+sigma = trnX.std()
+trnX = (trnX - mu) / sigma
+valX = (valX - mu) / sigma
+tstX = (tstX - mu) / sigma
+
+feature_count = 256
+feature_input = layers.Input(shape = trnX.shape[1:])
+feature_embedding = layers.Conv1D(feature_count, 2, padding = "same", activation = "relu")(feature_input)
+position_input = layers.Input(shape = (trnX.shape[1]))
+position_embedding = layers.Embedding(trnX.shape[1], feature_count)(position_input)
+embedding = layers.Add()([ feature_embedding, position_embedding ])
+norm = layers.LayerNormalization(epsilon = 0.000001)(embedding)
+block1 = TransformerBlock(feature_count//64, 64, 4*feature_count)(norm)
+block2 = TransformerBlock(feature_count//64, 64, 4*feature_count)(block1)
+flatten = layers.Flatten()(block2)
+dropout = layers.Dropout(0.5)(flatten)
+output = layers.Dense(trnY.max() + 1, activation = "softmax")(dropout)
+model = models.Model(inputs = [ feature_input, position_input ], outputs = output)
+
+learning_rate = experimental.CosineDecayRestarts(initial_learning_rate = 0.001, first_decay_steps = math.ceil(1.0 * trnX.shape[0] / 32), t_mul = 1.0, m_mul = 0.95)
+optimizer = optimizers.Adam(learning_rate = learning_rate)
+model.compile(loss = "sparse_categorical_crossentropy", optimizer = optimizer, metrics = [ "accuracy" ])
+model.summary()
+
+callbacks = [ callbacks.EarlyStopping(monitor = "val_accuracy", patience = 16, restore_best_weights = True) ]
+history = model.fit([ trnX, trnP ], trnY, batch_size = 32, epochs = 32, validation_data = ([ valX, valP ], valY), callbacks = callbacks)
+
+probabilities = model.predict([ tstX, tstP ])
+classes = probabilities.argmax(axis = -1)
+
+predictions = open("predictions.csv", "w")
+predictions.write("id,label\n")
+for i in range(tstX.shape[0]):
+    predictions.write(str(i).zfill(5) + "," + str(classes[i]) + "\n")
+predictions.close()

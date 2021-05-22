@@ -1,0 +1,19 @@
+# pip install librosa
+
+import librosa
+import numpy as np
+import soundfile as sf
+import sys
+
+signal_file = sys.argv[1]    # path to ".wav" file with speech
+noise_file = sys.argv[2]     # path to ".wav" file with noise
+timeSeries1, samplingRate1 = librosa.load(signal_file, sr = None)
+timeSeries2, samplingRate2 = librosa.load(noise_file, sr = None)
+length1 = len(timeSeries1)
+length2 = len(timeSeries2)
+max_start = length2 - length1
+start = np.random.choice(max_start)
+proportion_signal = 0.5
+proportion_noise = 1.0 - proportion_signal
+timeSeriesNew = proportion_signal * timeSeries1 + proportion_noise * timeSeries2[start2:(start+length1)]
+sf.write("merged.wav", timeSeriesNew, samplingRate1)

@@ -1,0 +1,35 @@
+# To install the library for the recognition and organization of speech and audio (librosa):
+# pip install librosa
+# https://github.com/librosa/librosa/blob/master/examples/LibROSA%20demo.ipynb
+
+import librosa
+import numpy as np
+from io import TextIOWrapper
+from zipfile import ZipFile
+
+def makeTensors(partition, n):
+    X = np.zeros((n, 32, 20)).astype("float32")
+    with ZipFile("ml530-2021-sp-speech.zip", "r") as archive:
+        for index in range(n):
+            with archive.open(partition + "/" + partition + "/" + str(index).zfill(5) + ".wav") as file:
+                timeSeries, samplingRate = librosa.load(file, sr = None)
+                if (timeSeries.shape[0] < samplingRate):
+                    timeSeries = librosa.effects.time_stretch(timeSeries, rate = 1.0 * timeSeries.shape[0] / samplingRate)
+                length = timeSeries.shape[0]
+                if (length > samplingRate):
+                    length = samplingRate
+                mfcc = librosa.feature.mfcc(y = timeSeries[:length], sr = samplingRate)
+                X[index,:,:] = np.transpose(mfcc).astype("float32")
+    np.save(partition + "X.npy", X)
+    if (partition != "tst"):
+        Y = np.zeros(n).astype("int32")
+        with ZipFile("ml530-2021-sp-speech.zip", "r") as archive:
+            with TextIOWrapper(archive.open(partition + ".csv", "r")) as file:
+                header = file.readline()
+                for index in range(n):
+                    Y[index] = np.int32(file.readline().strip("\r\n").split(",")[1])
+        np.save(partition + "Y.npy", Y)
+
+makeTensors("trn", 51088)
+makeTensors("val", 6798)
+makeTensors("tst", 6835)

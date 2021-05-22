@@ -1,0 +1,63 @@
+# wget http://nlp.stanford.edu/data/glove.6B.zip
+
+import numpy as np
+import re
+import spacy
+from spacy.lang.en import English
+from zipfile import ZipFile
+
+vocabulary = set()
+with ZipFile("glove.6B.zip", "r") as archive:
+    with archive.open("glove.6B.300d.txt", "r") as file:
+        for line in file:
+            token = line.decode("utf-8").split(" ")[0]
+            vocabulary.add(token)
+
+nlp = English()
+tokenizer = nlp.tokenizer
+
+# create token-to-file mapping
+mapping = dict()
+with ZipFile("ml530-2021-sp-newsgroups.zip", "r") as archive:
+    index = 0
+    for i in range(15062):
+        with archive.open("newsgroups_trn/newsgroups_trn_" + str(i).zfill(5) + ".txt") as file:
+            text = file.read().decode("utf-8")
+            text = re.sub("[\t\r\n]", " ", text)
+            text = " ".join(text.split())
+            for token in [ token.text for token in tokenizer(text) ]:
+                key = token.lower()
+                if (key not in mapping):
+                    mapping[key] = set()
+                if (i not in mapping[key]):
+                    mapping[key].add(i)
+        index = index + 1
+
+# create frequency-to-token mapping
+members = dict()
+for k,v in mapping.items():
+    freq = len(v)
+    if (freq not in members):
+        members[freq] = []
+    if (k not in members[freq]):
+        members[freq].append(k)
+
+# sort tokens by frequency, in descending order
+tuples = sorted(members.items(), reverse = True)
+
+# select tokens for the vocabulary
+selected = []
+for i in range(len(tuples)):
+    candidates = tuples[i][1]
+    np.random.shuffle(candidates)
+    for candidate in candidates:
+        if (candidate in vocabulary):
+            selected.append(candidate)
+
+# write out vocabulary
+output = open("vocabulary.dat", "w")
+for token in selected:
+    n = len(mapping[token])
+    if (n >= 10):
+        output.write(str(len(mapping[token])) + "\t" + token + "\n")
+output.close()

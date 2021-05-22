@@ -1,0 +1,42 @@
+import numpy as np
+import re
+import spacy
+from spacy.lang.en import English
+from zipfile import ZipFile
+
+maxSeqLen = 948
+
+tokenIndex = dict()
+index = 1
+for line in open("vocabulary.dat", "r", encoding = "utf-8"):
+    value = line.strip("\r\n").split("\t")
+    tokenIndex[value[1]] = index
+    index = index + 1
+vocabularySize = index
+
+nlp = English()
+tokenizer = nlp.tokenizer
+
+size = dict()
+size["trn"] = 15062
+size["val"] = 1883
+size["tst"] = 1883
+
+with ZipFile("ml530-2021-sp-newsgroups.zip", "r") as archive:
+    for partition in [ "trn", "val", "tst" ]:
+        docCount = size[partition]
+        docTokenMatrix = np.zeros((docCount, maxSeqLen)).astype("int32")
+        for i in range(docCount):
+            with archive.open("newsgroups_" + partition + "/newsgroups_" + partition + "_" + str(i).zfill(5) + ".txt") as file:
+                text = file.read().decode("utf-8")
+                text = re.sub("[\t\r\n]", " ", text)
+                text = " ".join(text.split())
+                sequence = []
+                seqLen = 0
+                for token in [ token.text for token in tokenizer(text) ]:
+                    key = token.lower()
+                    if (seqLen < maxSeqLen):
+                        if (key in tokenIndex):
+                            docTokenMatrix[i,seqLen] = tokenIndex[key]
+                        seqLen = seqLen + 1
+        np.save("newsgroups_" + partition + "X.npy", docTokenMatrix)
