@@ -1,0 +1,18 @@
+Name: Michael Young (myoung10)
+Display Name: Buenos Aires
+
+For the model you choose ...
+a) Which model did you choose?
+microsoft/deberta-base
+
+b) What is the size of the vocabulary?
+128K
+
+c) How many features are used for each token?
+~1,093
+
+d) How many parameters are there for the word embeddings?
+140M
+
+e) How much memory is consumed to store these parameters?  [Assume float32 representation for the parameters.]
+560,000,000 bytes

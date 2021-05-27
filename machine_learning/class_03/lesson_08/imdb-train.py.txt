@@ -1,0 +1,116 @@
+# conda activate py37_pytorch
+# pip install transformers
+# check https://huggingface.co/transformers/pretrained_models.html for model name values
+
+model_name_or_path = "roberta-large"
+
+import numpy as np
+import re
+import torch
+from io import TextIOWrapper
+from sklearn.metrics import accuracy_score
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, EvalPrediction, Trainer, TrainingArguments
+from typing import Dict
+from zipfile import ZipFile
+
+size = { "imdb_trn": 25000, "imdb_val": 12500, "imdb_tst": 12500 }
+
+trn_texts = []
+val_texts = []
+tst_texts = []
+trn_labels = []
+val_labels = []
+with ZipFile("ml530-2021-sp-imdb.zip", "r") as archive:
+    for partition,count in size.items():
+        for i in range(count):
+            with archive.open(partition + "/" + str(i).zfill(5) + ".txt") as file:
+                text = file.read().decode("utf-8")
+                text = re.sub("[\t\r\n]", " ", text)
+                text = " ".join(text.split())
+                if (partition == "imdb_trn"):
+                    trn_texts.append(text)
+                elif (partition == "imdb_val"):
+                    val_texts.append(text)
+                elif (partition == "imdb_tst"):
+                    tst_texts.append(text)
+        if (partition != "imdb_tst"):
+            with TextIOWrapper(archive.open(partition + ".csv", "r")) as file:
+                header = file.readline()
+                for i in range(count):
+                    label = 0
+                    if (file.readline().strip("\r\n").split(",")[1] == "1"):
+                        label = 1
+                    if (partition == "imdb_trn"):
+                        trn_labels.append(label)
+                    elif (partition == "imdb_val"):
+                        val_labels.append(label)
+
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+
+trn_encodings = tokenizer(trn_texts, truncation = True, padding = True)
+val_encodings = tokenizer(val_texts, truncation = True, padding = True)
+tst_encodings = tokenizer(tst_texts, truncation = True, padding = True)
+
+class Dataset(torch.utils.data.Dataset):
+    def __init__(self, length, encodings, labels = None):
+        self.length = length
+        self.encodings = encodings
+        self.labels = labels
+
+    def __getitem__(self, index):
+        item = { key: torch.tensor(value[index]) for key,value in self.encodings.items() }
+        if (self.labels is not None):
+            item["labels"] = torch.tensor(self.labels[index])
+        return item
+
+    def __len__(self):
+        return self.length
+
+trn_dataset = Dataset(size["imdb_trn"], trn_encodings, trn_labels)
+val_dataset = Dataset(size["imdb_val"], val_encodings, val_labels)
+tst_dataset = Dataset(size["imdb_tst"], tst_encodings)
+
+trn_args = TrainingArguments(
+    output_dir = "./output",
+    overwrite_output_dir = True,
+    evaluation_strategy = "steps",
+    per_device_train_batch_size = 2,
+    per_device_eval_batch_size = 8,
+    gradient_accumulation_steps = 4,    # effective batch size = 2 * 4 = 8
+    learning_rate = 0.00001,
+    max_steps = 3125,    # 3125 * 8 = 25000
+    warmup_steps = 625,
+    logging_steps = 3125,
+    save_steps = 3125,
+    eval_steps = 3125
+)
+
+model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path)
+
+def accuracy(p: EvalPrediction) -> Dict:
+    predictions = np.argmax(p.predictions, axis=1)
+    return { "accuracy": accuracy_score(p.label_ids, predictions) }
+
+trainer = Trainer(
+    model = model,
+    args = trn_args,
+    train_dataset = trn_dataset,
+    eval_dataset = val_dataset,
+    compute_metrics = accuracy
+)
+
+trainer.train()
+
+output = trainer.predict(test_dataset = tst_dataset)
+predictions = np.argmax(output.predictions, axis = 1)
+output = open("predictions.csv", "w")
+output.write("id,label\n")
+for i in range(predictions.shape[0]):
+    output.write(str(i).zfill(5) + "," + str(predictions[i]) + "\n")
+output.close()
+
+print(model)
+total_parameters = 0
+for parameters in model.parameters():
+    total_parameters += np.product(list(parameters.size()))
+print("total parameters:", total_parameters)
