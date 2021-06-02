@@ -1,0 +1,59 @@
+# see https://keras.io/api/layers/recurrent_layers/lstm/ for "requirements to use the cuDNN implementation"
+
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras import activations, callbacks, experimental, layers, models, optimizers, regularizers
+from tensorflow.python.ops import embedding_ops, math_ops
+
+class Embedding(layers.Layer):
+    def __init__(self, input_dim, output_dim, **kwargs):
+        super(Embedding, self).__init__(**kwargs)
+        self.embeddings = self.add_weight(shape = (input_dim, output_dim), initializer = "uniform", trainable = True, name = "embeddings")
+        self.supports_masking = True
+    def compute_mask(self, inputs, mask = None):
+        return math_ops.not_equal(inputs, 0)
+    def call(self, inputs):
+        output = embedding_ops.embedding_lookup_v2(self.embeddings, inputs)
+        return output
+
+class TransposedEmbedding(layers.Layer):
+    def __init__(self, embeddings_layer: layers.Layer, **kwargs):
+        super(TransposedEmbedding, self).__init__(**kwargs)
+        self.embeddings_layer = embeddings_layer
+#       self.bias = self.add_weight(shape = (embeddings_layer.embeddings.shape[0],), initializer = "zeros", trainable = True, name = "bias")
+    def call(self, inputs):
+#       output = activations.softmax(tf.matmul(inputs, self.embeddings_layer.embeddings, transpose_b = True) + self.bias)
+        output = activations.softmax(tf.matmul(inputs, self.embeddings_layer.embeddings, transpose_b = True))
+        return output
+
+trnX = np.load("trnX.npy")
+trnY = np.load("trnY.npy")
+valX = np.load("valX.npy")
+valY = np.load("valY.npy")
+tstX = np.load("tstX.npy")
+tstY = np.load("tstY.npy")
+
+feature_count = 1024
+batch_size = 128
+vocabulary_size = np.max([ trnX.max(), valX.max(), tstX.max() ]) + 1
+
+embedding = Embedding(vocabulary_size, feature_count)
+output = TransposedEmbedding(embedding)
+input = layers.Input(shape = (trnX.shape[1],), dtype = "int32")
+x = embedding(input)
+x = layers.LSTM(feature_count, dropout = 0.5, kernel_regularizer = regularizers.l1(0.000001))(x)
+x = output(x)
+model = models.Model(inputs = input, outputs = x)
+
+callbacks = [ callbacks.EarlyStopping(monitor = "val_sparse_categorical_crossentropy", patience = 4, restore_best_weights = True) ]
+model.compile(loss = "sparse_categorical_crossentropy", optimizer = "adam", metrics = [ "sparse_categorical_crossentropy" ])
+model.summary()
+
+model.fit(trnX, trnY, epochs = 4, batch_size = batch_size, validation_data = (valX, valY), callbacks = callbacks)
+
+probabilities = model.predict(tstX)
+output = open("predictions.csv", "w")
+output.write("id,prediction\n")
+for i in range(tstX.shape[0]):
+    output.write(str(i).zfill(6) + "," + str(probabilities[i,tstY[i]]) + "\n")
+output.close()

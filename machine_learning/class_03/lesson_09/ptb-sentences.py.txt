@@ -1,0 +1,49 @@
+import nltk.corpus
+import numpy as np
+
+token2index = dict()
+index = 4
+for line in open("ptb-vocabulary.dat", "r"):
+    value = line.strip("\r\n").split("\t")
+    token2index[value[1]] = index
+    index = index + 1
+
+def getTokens(i, parent, isNumber):
+    for node in parent:
+        if (type(node) is nltk.Tree):
+            if (node.label() != "-NONE-"):
+                if (node.label() == "CD"):
+                    getTokens(i, node, True)
+                else:
+                    getTokens(i, node, False)
+        else:
+            key = str(node).lower()
+            if (isNumber):
+                key = "NUMBER"
+            if (i not in sentences):
+                sentences[i] = []
+            identifier = 3
+            if (key in token2index):
+                identifier = token2index[key]
+            sentences[i].append(str(identifier))
+
+count = dict()
+count["trn"] = 1850
+count["val"] = 231
+count["tst"] = 231
+
+for partition in [ "trn", "val", "tst" ]:
+    sentences = dict()
+    sentenceIndex = 0
+    for i in range(count[partition]):
+        reader = nltk.corpus.BracketParseCorpusReader(partition, str(i).zfill(4) + "\.mrg")
+        for tree in reader.parsed_sents():
+            getTokens(sentenceIndex, tree, False)
+            sentenceIndex = sentenceIndex + 1
+    outfile = open(partition + ".dat", "w")
+    for k,v in sentences.items():
+        seq = []
+        for token in v:
+            seq.append(token)
+        outfile.write(" ".join(seq) + "\n")
+    outfile.close()

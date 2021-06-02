@@ -1,0 +1,36 @@
+import nltk.corpus
+import numpy as np
+
+MAXSEQ = 249
+
+for partition in [ "trn", "val", "tst" ]:
+    X = []
+    Y = []
+    for line in open(partition + ".dat", "r"):
+        value = line.strip("\r\n").split(" ")
+        for i in range(len(value) + 1):
+            paddingLength = MAXSEQ - i
+            sequence = []
+            sequence.append("1")
+            for j in range(i):
+                sequence.append(value[j])
+            for j in range(MAXSEQ - i):
+                sequence.append("0")
+            X.append(" ".join(sequence))
+            if (i == len(value)):
+                Y.append("2")
+            else:
+                Y.append(value[i])
+    numRows = len(X)
+    numCols = MAXSEQ + 1
+    npX = np.zeros((numRows, numCols), dtype = "int32")
+    npY = np.zeros(numRows, dtype = "int32")
+    indexList = np.arange(len(X))
+    np.random.shuffle(indexList)
+    nextRow = 0
+    for i in indexList:
+        npX[nextRow] = [ int(x) for x in X[i].split(" ") ]
+        npY[nextRow] = Y[i]
+        nextRow = nextRow + 1
+    np.save(partition + "X.npy", npX)
+    np.save(partition + "Y.npy", npY)
