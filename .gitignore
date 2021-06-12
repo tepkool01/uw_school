@@ -4,4 +4,6 @@ debug.log
 videos
 ethical_hacking/class_01/videos
 .ipynb_checkpoints
-.mp4
+**/*.mp4
+**/*.m4a
+**/*.vtt
