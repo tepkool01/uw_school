@@ -1,0 +1,5 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Accounts and Authentication in a Windows Domain
+
+Explain how accounts and authentication work in a Windows domain. How does it manage and keep track of users, how are users authenticated? What are the highest privileged accounts built in to a Windows environment (both in the Domain and on a particular Server/Workstation).

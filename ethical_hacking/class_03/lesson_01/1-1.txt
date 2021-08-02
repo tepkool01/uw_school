@@ -1,0 +1,6 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: LDAP's Function in an Enterprise Network
+
+Explain what LDAP is and what it does in an enterprise network.
+Lightweight directory access protocol (LDAP) is a vendor-neutral protocol (abstraction of sorts) for a entity/user management system (like active directory), which can be real people or devices connected on a corporate network (i.e. printers, meeting schedulers). Protocols are generally rules that allow an engineer to interact in a consistent fashion over a port/network. This allows applications to read/write information about a user or appliance in an expected manner. For example, a user could authenticate with the system, and then through LDAP, an application could discover various devices contained within the corporate network, via the storage in the LDAP directory. LDAP in an organization would also be valuable for its single sign-on capabilities that allow a central user to access many back-end services that are LDAP-enabled. The typical LDAP directory heirarchy is root->countries->organizations->divisions->people/files/resources.

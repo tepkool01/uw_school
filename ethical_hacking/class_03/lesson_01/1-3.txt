@@ -1,0 +1,12 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Security Problems With SMB/CIFS
+
+Explain 3 security problems related to SMB(v2)/CIFS in detail and categorize each problem's security effect using the STRIDE model.
+1. Information Disclosure - An attacker can send a link to a user, which redirects to a malicious SMB server, and the user will automatically attempt to connect to the SMB with their existing user credentials. The attacker can then view the server logs of their SMB server to retrieve the victim's user hashes. (https://www.dionach.com/en-us/blog/do-you-wannacry-a-taste-of-smb-exploitation/)
+2. Tampering - An attacker could create a SMB server and have the user connect to it and victim may download a malicious payload. If the user attempts to connect to a SMB server, and is unsuccessful, they may have a setting on their computer that falls back to 'anonymous' or default access, still allowing them to connect to the SMB server. If the user opens up any of these malicious files, it could allow the attacker to execute a reverse shell or any other malicious payload.
+3. Information Disclosure/Tampering - If a anonymous sessions (null sessions) are allowed, an attacker could simply login and modify/read folders/files.
+
+Other References:
+https://www.exploit-db.com/docs/48760
+https://techcommunity.microsoft.com/t5/storage-at-microsoft/smb-and-null-sessions-why-your-pen-test-is-probably-wrong/ba-p/1185365
