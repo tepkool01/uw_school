@@ -1,0 +1,8 @@
+Name: Michael Young (myoung10)
+
+1. Memory went up from 0.8 to 2.9 and CPU temporarily spiked to 100% in the 'BAD' upload (although less important in this situation than the memory). The 'GOOD' upload had no changes in memory or CPU.
+2. The bad program is creating a memory stream to copy the file UploadFile.zip into memory first, then writing this file to disk from memory, whereas the good program is using a 'move' command.
+3. Because the bad program is using the system's memory (has a max of 4.0 GB available), we can likely make the program crash by giving it a file that is too big to fit into memory. Since the 'idle' of memory is 0.9, we would need at least a 3.1 gigabyte file to cause the system to run out of memory (or it may start to do weird system things, maybe swap space or something).
+If we could only do a single upload at a time, and if the file is just 1 gig, then we would need to spin up 3-4 different instances of this upload program to make it run out of memory.
+Also, if we had access to the system and the ability to modify the memory, we might be able to modify the file in transit.
+4. It is possible for the attacker to cause the system to run out of memory because there are no file-size/available memory checks done prior to copying. Although this could've been avoided by not using memory in the first place like the 'good' implementation.

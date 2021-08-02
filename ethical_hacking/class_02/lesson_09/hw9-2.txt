@@ -1,0 +1,9 @@
+Name: Michael Young (myoung10)
+
+It seems that the language is taking the input from the boxes and outputting it, and allows for the interpretation of HTML. I was able to include an image from my directory, <img src="me.jpg">, by adding in some HTML and it was pasted to the site.
+Another interesting behavior I found was that it reduced all of my continuous spaces to a single space.
+Another behavior is that the text is only displayed after keyup. If I add in an open tag or comment, both response fields disappear and I'm left with a single quotation. They are seemingly linked in this 'div' of sorts.
+After typing in 'search' in the in box, it seemingly broke the system.
+There are key word delimiters that mark the start/end of the search string, denoted by the word 'start' for the beginning position and 'end' by the end of the string. Inputting 'start' is removed from the search, and inputting 'end' breaks the system
+
+I actually don't see any search functionality happening claiming a positive/negative match. Program might be broken?
