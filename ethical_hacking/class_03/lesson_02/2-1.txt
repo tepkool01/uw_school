@@ -3,3 +3,5 @@ Class: Hacking 330 A
 Assignment: Accounts and Authentication in a Windows Domain
 
 Explain how accounts and authentication work in a Windows domain. How does it manage and keep track of users, how are users authenticated? What are the highest privileged accounts built in to a Windows environment (both in the Domain and on a particular Server/Workstation).
+
+It manages and keeps tracks of users using the domain controller which plucks records (profiles) from an active directory/LDAP (base domain), and it authenticates using kerboros/other mechanisms. The highest privileged accounts are ones operating in session 0 / administrator accounts. Accounts are formed on the basis of a a heirarchal tree structure which stems from a domain, further divided into ACLs which dictate allow/deny, resources, and action permissions.

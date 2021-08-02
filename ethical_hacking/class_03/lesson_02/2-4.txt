@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Credentials and Account Storage in Windows
+
+How are credentials and accounts stored on a non-domain joined computer running Windows? If a Windows computer is domain joined, where are credentials and accounts stored?
+
+Non-domain joined computer credentials are stored in the SAM file. Also. Domain controlled credentials are cached in the LSASS (local security authority) process which syncs up to the remote server which has a database (AD) of all the credentials. On the domain controller, the hashes are stored on the NTDS.dit file.

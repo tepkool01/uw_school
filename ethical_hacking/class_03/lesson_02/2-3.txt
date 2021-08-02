@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Forests and Domains
+
+Describe the architectural layout of a Windows domain environment. What are forests and domains? How do these interact with each other?
+
+Forests is the conceptual view or organization of the windows security model/relationship which is comprised of many inherited trees of permissions and groupings. For example, the top node would be a domain (i.e. washington.edu, mail.washington.edu), then maybe an organizational unit. While a bottom node may be the individual resource. These interact with one another to group greater permission sets together through linking and sometimes transitive properties. For example, giving a user access to washington.edu may provide read/write access to all resources that are contained within the child nodes of that domain, while if we were to give a subset of those permissions in that domain, i.e. only access to the database, it would not give access to everything contained within that domain but only that explicit resource. Transitive properties would be horizontal sharing of inherit trust, which means if 2+ sub domains trust one another, and a user was given access to 1 of them, they would automatically receive access for all of them.

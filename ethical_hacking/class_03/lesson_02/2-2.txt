@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Authorization in Windows
+
+Explain how authorization works in a Windows environment. What are ACLs and ACEs? What are privileges?
+
+Access control lists are a group of permissions containing 0 or more ACEs (Access Control Entries) which affect how an entity can interact with specific resources. ACLs act on the object to be interacted with (files, folders, registry keys, and kernel objects). A privilege is a separate security permission than ACL which allows controls assignment of access directly to accounts & groups.
