@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Linux Security/Permissions Model
+
+Explain the Linux security/permissions model. What are the highest privileged account(s) in a Linux environment?
+
+In a linux security model you can swap out various systems/models using hooks to do additional security permission checks. I.E. if Bob is a user of the local system, and all users under the regular security mechanism can read a file, then he should be able to read it. However, if there is a hook saying people with the username < 5 characters can't share the same privileges as all users, then Bob would be blocked from reading the file under the custom rules. Linux has 'capabilities', and with root being the highest privileged account, the kernel does not check for capabilities. Certain actions are reserved for root/sudoers of a system, i.e. binding sockets below 1024, preventing shutdowns, bypassing read file permissions, changing ownership of files, etc. Sudo-ers are also a very high privileged account, as they can have the super-user do their actions for them, but their account itself is not a high privileged account. /etc/sudoers shows where the users that can leverage highly privileged actions reside. On most linux systems, permissions are broken into 3 categories: owning user, owning group, and others, represented in binary, but also in more readable formats like 777 or rwxrwxrwx which indicate read (r) write (w) and execute (x). Directory is also a designation with a prepended 'd' to indicate such.

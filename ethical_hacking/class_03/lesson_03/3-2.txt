@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Linux PAM
+
+What is PAM, and how would it be used in a large Linux environment?
+
+PAM stands for Pluggable AUthentication Modules. With PAM you can easily swap out various types of authentication. The name implies the adapter pattern in software, where you can have multiple concrete classes implementing a common interface. It's a mechanism for integrating low-level auth solutions into an usable common API. In a large linux environment, it would be used to consolidate multiple disparate authentication schemas across an organization. I don't know many people who enjoy multiple ways of authentication, so this brings them all together as one cohesive unit so a user need only remember 1 way to provide authentication, being a service you are writing or actual user trying to gain access to a specific service. This problem occurs often when multiple teams choose their own way of doing things (i.e. Amazon), and can be cumbersome for their to be a common language for new people entering the company to wrap their heads around.

@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Credentials and Account Storage in Linux
+
+How are credentials and accounts stored on each computer running Linux?
+
+All user accounts are stored in the /etc/passwd. Groups are stored in /etc/group. /etc/shadow stores the passwords (hashes). Generally I've seen accounts and profiles stored in /home/USERNAME, but as with anything in linux, it can be customized I imagine. Profiles, files, customizations, etc are generally stored under this /home directory. Further configurations for account set up are generally held in various configuration files under /etc, i.e. sudoers file in /etc/sudoers. Everything is simply a file (text) that can be read with any text editor.

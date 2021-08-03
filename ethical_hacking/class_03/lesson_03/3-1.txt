@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Windows vs Linux Philosophy
+
+Compare and contrast the philosophy of Windows vs that of Linux. Minimum 200 words.
+
+The philosphy of Windows vs Linux can stem from one critical difference, open vs a closed system. Linux provides extreme customization/flexibility for you to design your own journey, which can be overwhelming for people who just want an out-of-the-box solution. A lot of the administrator functionality of Windows is hidden from view, and the ability for customizations are limited to what Windows decides. For example you only have one option for a file explorer (windows explorer). The whole experience in windows is to make things simple and guided so a user/businesses can focus on their business rather than getting their system fine-tuned. Linux has a more modular design, and there are many distros/options to choose from. Most things are open-source, so the contributions and passions surrounding linux are high, whereas microsoft is a company looking to profit. Most times, if I really wanted to change something in linux, I could directly affect the source code of whatever plugin I was using to suit my specific needs. It would be a much more convoluted and often times impossible task in Windows. One isn't better than the other, they are simply designed for different purposes in the same way I'd use Python for machine learning and JavaScript for the web.
