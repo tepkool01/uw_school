@@ -1,0 +1,7 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Roles in Kerberos
+
+Explain what the KDC is and what its role is in a Kerberos environment. Practically, what is the KDC's relationship with the Ticket-Granting Server?
+
+KDC = Key Distribution Center is the "service that is responsible for authenticating users and issuing tickets". KDC is comprised of the Authentication Server, Ticket Granting Server (TGS), and a user database (from the first image). In subsequent images, even though the TGT and TGS servers are separate concepts, they are encapsulated by the dotted line as the KDC. The relationship between them is that the KDC (TGT provider) establishes a relationship with the user that they are who they say they are (Authentication). Then with the TGT formerly received, and a newly crafted TGS request (who the principal is, service user would like to access), the user sends a request to the TGS server to retrieve a service-key encrypted request to pass on to the resource server. So the relationship here is ultimately that the KDC would issue an authentication ticket, which the user then sends to the TGS to get an access ticket to whatever service they were after in the first place. Without a TGT from the initial exchange, the TGS would deny the user from receiving a valid service ticket.

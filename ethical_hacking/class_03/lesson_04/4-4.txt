@@ -1,0 +1,14 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Basic User Scenario in Kerberos
+
+A user logs onto a workstation and opens a network file share in a Kerberos environment. Explain in detail what happens in Kerberos during this scenario. Which Kerberos "exchanges" take place as part of this scenario?
+
+1. [Authentication/Prove membership on domain] Client requests TGT from KDC (using user's password)
+    - KDC Server decrypts request (with user's password it has stored), responds with TGT (encrytped with user's password)
+    - If client can decrypt the traffic, the KDC they talked to is legitament.
+2. [Establish trust relationship between client and service] Client requests ticket from TGS (Ticket Granting Server) for a specific resource (i.e. Network File Share), using their TGT
+    - TGS responds back to client with 'service ticket' they created, which is encrypted with the specific service's (network file share) hash.
+3. Client sends ticket and service request to resource server to perform some action.
+    - service can decrypt the data because it was encrypted with the service's encryption
+    - access to the network file share is granted

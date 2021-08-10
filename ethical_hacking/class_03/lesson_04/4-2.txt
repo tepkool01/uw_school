@@ -1,0 +1,11 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Problems Solved by Kerberos
+
+List 2 network security problems solved by Kerberos and describe *how* it solves them in detail.
+
+1. Replay Attacks - It solves this problem by verifying the timestamp of the decrypted message. The KDC system also holds the used (and possibly expired keys) in some database so that it can make sure that tickets aren't abled to be used multiple times. This prevents a replay attack, which is when someone captures a user's request/ticket and re-sends that same request.
+
+2. Never exchanges passwords/keys over the network. The password isn't sent over the network, it is used as the basis for encrypting a message, and subsequently decrypting a message on the KDC. This means that a MITM attack can't reverse engineer the user's password because if they were to end up decrypting the message, it wouldn't reveal the user's password.
+
+3. Adding a 3rd, as this one may not be seen as a security problem, but more of a feature. Is a networking/single source of truth for all of credentials, it can allow other users to login to the same machine and verify as themselves, rather than that system containing the usernames/passwords for all users locally on that machine. This is because the user can use their password and authenticate with the remote server (using symmetric encryption) and get a ticket for their auth, which will ultimately allow them access to whatever resources they need, instead of relying on only that local machine's login.
