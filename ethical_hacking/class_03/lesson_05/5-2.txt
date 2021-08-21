@@ -1,0 +1,13 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Remote Management Technologies
+
+For each of the following remote management technologies, explain what they are and if they would be found in a Windows or Linux environment (or both?):
+
+- Remote Desktop Protocol: Found in Windows and Linux Environments. RDP is an encrypted protocol based on the T-120 family of protocol standards. The protocol currently only supports TCP/IP but could extend itself out in the future for popular demand. It is a way to access remote environments (not Windows Home edition) and be able to interact with [generally] a GUI.
+
+- SSH: Found in Linux Environments (sometimes Windows). It is a protocol used to connect to remote servers securely (encrypted connection). This is without a GUI. It is used for remote access/administration of servers, file transfers, tunneling, network management, etc. It is a client-server based protocol. The commands here are entered as if they were entered locally. SSH also handles the authentication.
+
+- Remote PowerShell: Found in Windows. Remote powershell is built on the Web Services for Management Protocol. The commands are typed on the local system and then are sent to the remote system which processes the commands and responds to the user with the results. Windows Remote Management handles the authentication.
+
+- WMI (Windows Management Instrumentation): Found in Windows. WMI is a way for system administrators to use scripts to process actions across remote servers, so some coding knowledge in windows languages is helpful (C/C++/COM programming/VB/C#). You can access WMI through the powershell Get-WMI command. WMI is geared towards enterprise users. WMI is useful for gathering management data from remote computers.

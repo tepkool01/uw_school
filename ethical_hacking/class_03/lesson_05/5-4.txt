@@ -1,0 +1,5 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Running Mimikatz
+
+Run Mimikatz on your student VM to dump the LSA data. Turn in the output of a successful Mimikatz run (you should see your account's password in the output). This can be a screenshot or text submission.

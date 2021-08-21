@@ -1,0 +1,8 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Mimikatz
+
+Explain how Mimikatz works and how it can be used to attack a Windows domain environment. What are silver/golden tickets and why are they such a problem?
+
+
+Mimikatz is used to view and save auth credentials (kerberos tickets). Windows stores password data in an NTLM hash and you can use Mimikatz to pass the hash (or pass the ticket [kerberos]) to a target computer for logging in. Mimikatz exploits the fact that a feature called WDigest loads passwords into memory along with the secret key to decrypt them. Mimikatz can simply dump the memory and process the passwords. A golden ticket is the kerberos ticket for the 'domain controller' of sorts/hidden administrator. The account is called KRBTGT, and it encrypts all tickets. The golden tickets gives you admin to any computer, and does not expire. A silver ticket takes advantage of kerberos TGS tickets, and you can get access to any service on the network.

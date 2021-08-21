@@ -1,0 +1,14 @@
+Name: Michael Young (myoung10)
+Class: Hacking 330 A
+Assignment: Noise and Detection
+
+Identify 3 "noisy" actions an attacker might perform in a network environment. For each, explain why it is noisy and how an administrator might detect the attacker.
+
+1. Unusual outbound traffic: i.e. an FTP call that doesn't have FTP setup
+2. Anomolies in privileged user accounts (admin)-- reset their password prematurely/reset password of 50 users when they normally don't do that.
+3. Geographical logins from foreign regions
+4. Weird logins (wrong time)/failed logins
+5. Increased data
+6. Large/Small/Atypical HTTP traffic
+7. Unusual DNS requests
+8. Signs of DDOS
